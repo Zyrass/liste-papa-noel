@@ -1,0 +1,66 @@
+<div class="section oceane">
+    <h1 class="ml-5 text-uppercase text-danger text-center">Liste pour le Papa Noël</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h3 class="mb-5 text-secondary text-uppercase">Pour l'enfant : {{ enfant }}</h3>
+
+                <div class="form-inline">
+                    <div class="col-6">
+                        <input type="text" class="form-control w-100" placeholder="Nom du jouet ici..."
+                            [(ngModel)]="nomJouet">
+                    </div>
+                    <div class="col-2">
+                        <input type="text" class="form-control w-100" placeholder="Prix ici..." [(ngModel)]="prixJouet">
+                    </div>
+                    <div class="col-2">
+                        <select class="form-control w-100" [(ngModel)]="magasinParDefaut">
+                            <option *ngFor="let magasin of listeMagasins" [value]="magasin">{{ magasin | uppercase }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-info btn-block"
+                            (click)="addNewJouetOceane(nomJouet, prixJouet, magasinParDefaut)">Ajouter</button>
+                    </div>
+                </div>
+
+                <table class="table table-bordered table-hover text-center mt-5">
+                    <caption class="text-center">Liste des jouets choisit part Sheryle</caption>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nom du Jouet</th>
+                            <th>Nom Magasin</th>
+                            <th>Prix</th>
+                            <th>Que décides-tu ?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf="listeJouetsOceane.length == 0">
+                            <td>0</td>
+                            <td>Pas de jouer enregistrer</td>
+                            <td>Aucun magasin sélectionner</td>
+                            <td>{{ prixParDefaut | currency: 'EUR': 'symbol-narrow': '1.2-2' }}</td>
+                            <td><button class="btn btn-secondary" disabled>Rien à faire</button></td>
+                        </tr>
+                        <tr *ngFor="let listeOceane of listeJouetsOceane; let i=index">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ listeOceane.name | uppercase }}</td>
+                            <td>{{ listeOceane.shopName }}</td>
+                            <td>{{ listeOceane.price | currency: 'EUR': 'symbol-narrow':'1.2-2' }}</td>
+                            <td><button class="btn btn-danger" (click)="SupprimerJouet(i)">Je n'en veux plus</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-center text-uppercase">Total :</td>
+                            <td>{{ calculerTotal() | currency : 'EUR': 'symbol-narrow':'1.2-2' }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
